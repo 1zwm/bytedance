@@ -1,14 +1,27 @@
-package types
+package routes
 
 import (
+	utils "bytedance/utils"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
+
+func InitRouters() *gin.Engine{
+	gin.SetMode(utils.AppMode)
+	r := gin.Default()
+
+	return r
+}
 
 func RegisterRouter(r *gin.Engine) {
 	g := r.Group("/api/v1")
 
 	//成员管理
-	g.POST("/member/create")
+	g.POST("/member/create", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H {
+			"msg" : "ok",
+		})
+	})
 	g.GET("/member")
 	g.GET("/member/list")
 	g.POST("/member/update")

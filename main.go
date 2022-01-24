@@ -1,13 +1,16 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"bytedance/model"
+	"bytedance/routes"
+	"bytedance/utils"
 )
 
 func main() {
-	g := gin.Default()
+	g := routes.InitRouters()
 
+	routes.RegisterRouter(g)
+	model.InitDb()
+	g.Run(utils.HttpPort)
 
-
-	g.Run(":8090")
 }
