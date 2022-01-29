@@ -1,5 +1,7 @@
 package types
 
+import "gorm.io/gorm"
+
 // 说明：
 // 1. 所提到的「位数」均以字节长度为准
 // 2. 所有的 ID 均为 int64（以 string 方式表现）
@@ -67,10 +69,11 @@ const (
 // 只有管理员才能添加
 
 type CreateMemberRequest struct {
-	Nickname string   // required，不小于 4 位 不超过 20 位
-	Username string   // required，只支持大小写，长度不小于 8 位 不超过 20 位
-	Password string   // required，同时包括大小写、数字，长度不少于 8 位 不超过 20 位
-	UserType UserType // required, 枚举值
+	gorm.Model
+	Nickname string   `gorm:"type: varchar(20)" json:"nickname"` // required，不小于 4 位 不超过 20 位
+	Username string   `gorm:"type: varchar(20)" json:"username"` // required，只支持大小写，长度不小于 8 位 不超过 20 位
+	Password string   `gorm:"type: varchar(20)" json:"password"` // required，同时包括大小写、数字，长度不少于 8 位 不超过 20 位
+	UserType UserType `gorm:"type: int" json:"user_type"`// required, 枚举值
 }
 
 type CreateMemberResponse struct {
